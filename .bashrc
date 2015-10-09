@@ -18,9 +18,9 @@ set_prompt() {
     PS1='\n'
     # If root, print name in red
     if [[ $EUID == 0 ]]; then
-        PS1+="$Red\u\h "
+        PS1+="$Red\u$Purple@\h "
     else
-        PS1+="$Blue\u\h "
+        PS1+="$Blue\u$Purple@\h "
     fi
     PS1+="$Green\\w$Green\n$Yellow$Lambda $Reset"
 }
