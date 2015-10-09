@@ -3,6 +3,8 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_CTYPE=UTF-8
+
+
 set_prompt() {
     Yellow='\[\e[0;33m\]'
     IYellow='\[\e[0;93m\]'
@@ -22,10 +24,29 @@ set_prompt() {
     else
         PS1+="$Blue\u$Purple@\h "
     fi
-    PS1+="$Green\\w$Green\n$Yellow$Lambda $Reset"
+    
+    branch_color=$White
+    touch ~/.bash_history
+    git branch>>~/.bash_history 2>>~/.bash_history
+    if  [[ $? -eq "0" ]]; then
+        git status | grep "nothing to commit">>~/.bash_history 2>>~/.bash_history
+        grep_status=$?
+
+        if [[ $grep_status -eq "0" ]]; then
+            branch_color=$Green
+        else
+            branch_color=$Red
+	fi
+    fi
+
+    branch="$branch_color"$(__git_ps1 " {%s}")
+
+    PS1+="$Yellow\\w$Green$branch\n$Yellow$Lambda $Reset"
 }
+
 PROMPT_COMMAND='set_prompt'
 eval $( dircolors -b $HOME/.dir_colors )
+
 alias dir='dir --color'
 alias ls='ls --color'
 alias exit='printf "bye\n";touch ~/.bash_history;exit >> ~/.bash_history 2>>~/.bash_history'
