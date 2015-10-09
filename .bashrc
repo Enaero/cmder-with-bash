@@ -29,4 +29,3 @@ eval $( dircolors -b $HOME/.dir_colors )
 alias dir='dir --color'
 alias ls='ls --color'
 alias exit='printf "bye\n";touch ~/.bash_history;exit >> ~/.bash_history 2>>~/.bash_history'
-printf '\nhi'
