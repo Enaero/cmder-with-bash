@@ -41,7 +41,7 @@ set_prompt() {
 
     branch="$branch_color"$(__git_ps1 " {%s}")
 
-    PS1+="$Yellow\\w$Green$branch\n$Yellow$Lambda $Reset"
+    PS1+="$Yellow\\w$Green\n\t$branch\n$Yellow$Lambda $Reset"
 }
 
 PROMPT_COMMAND='set_prompt'
