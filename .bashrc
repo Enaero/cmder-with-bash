@@ -13,6 +13,7 @@ Purple='\[\e[0;35m\]'
 Blue='\[\e[01;34m\]'
 White='\[\e[01;37m\]'
 Red='\[\e[01;31m\]'
+IRed='\e[0;91m'
 Green='\[\e[01;32m\]'
 Cyan='\[\e[0;36m\]'
 Reset='\[\e[00m\]'
@@ -31,10 +32,12 @@ set_prompt() {
     
     # Set this to false for faster performance in large repos:
     export GIT_PS1_SHOWDIRTYSTATE=true
-    
+    export GIT_PS1_SHOWUNTRACKEDFILES=true 
     branch=$(__git_ps1 " {%s}")
     if [[ $(echo "$branch" | grep "[\*\+]") ]]; then
         branch_color=$Red
+    elif [[ $(echo "$branch"| grep "[\%]") ]]; then
+        branch_color=$IRed
     else
         branch_color=$Green
     fi
